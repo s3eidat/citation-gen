@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Citation Gen — Free APA, MLA, Chicago, Harvard &amp; IEEE Citation Generator | S3eidat Tools</title>
+<meta name="description" content="Make APA 7, MLA 9, Chicago author-date, Harvard and IEEE citations for books, chapters, articles, websites, news, videos and reports. Build a bibliography. Free, private, nothing uploaded.">
+<meta property="og:title" content="Citation Gen — free, private citation generator">
+<meta property="og:description" content="APA, MLA, Chicago, Harvard and IEEE citations and bibliographies. Runs 100% in your browser.">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+<!--s3:seo-->
+<link rel="canonical" href="https://s3eidat.github.io/citation-gen/">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d0f12">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="S3eidat Tools">
+<meta property="og:url" content="https://s3eidat.github.io/citation-gen/">
+<meta property="og:image" content="https://s3eidat.github.io/citation-gen/screenshot.png">
+<meta property="og:image:width" content="1280"><meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Citation Gen — APA, MLA, Chicago and Harvard citations">
+<meta name="twitter:description" content="APA, MLA, Chicago and Harvard citations. Free, private and runs 100% in your browser: no sign-up, no uploads.">
+<meta name="twitter:image" content="https://s3eidat.github.io/citation-gen/screenshot.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Citation Gen", "url": "https://s3eidat.github.io/citation-gen/", "description": "APA, MLA, Chicago and Harvard citations. Free, private and runs 100% in your browser: no sign-up, no uploads.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "image": "https://s3eidat.github.io/citation-gen/screenshot.png", "author": {"@type": "Person", "name": "s3eidat", "url": "https://github.com/s3eidat"}}</script>
+<!--/s3:seo-->
+</head>
+<body data-tool="citation-gen">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Citation Gen</h1>
+    <p>Fill in a source once and get it in APA 7, MLA 9, Chicago author-date, Harvard or IEEE, with the right italics, author rules and punctuation. Build a bibliography that stays on this device.</p>
+  </section>
+
+  <section class="card cg-bar">
+    <div class="row between">
+      <div class="seg" id="style" role="group" aria-label="Citation style">
+        <button type="button" data-v="apa" aria-pressed="true">APA 7</button>
+        <button type="button" data-v="mla" aria-pressed="false">MLA 9</button>
+        <button type="button" data-v="chicago" aria-pressed="false">Chicago</button>
+        <button type="button" data-v="harvard" aria-pressed="false">Harvard</button>
+        <button type="button" data-v="ieee" aria-pressed="false">IEEE</button>
+      </div>
+      <label class="field cg-type">Source type
+        <select class="select" id="type">
+          <option value="book">Book</option>
+          <option value="chapter">Chapter in an edited book</option>
+          <option value="journal">Journal article</option>
+          <option value="website">Web page</option>
+          <option value="newspaper">Newspaper / magazine article</option>
+          <option value="video">Online video</option>
+          <option value="report">Report</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <div class="cg-grid mt">
+    <section class="card stack" id="form">
+      <div class="row between">
+        <h2 id="formTitle">Source details</h2>
+        <div class="row">
+          <button class="btn ghost small" type="button" id="sample">Sample</button>
+          <button class="btn ghost small" type="button" id="reset"><svg class="i"><use href="#i-refresh"/></svg>New</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span id="authLabel">Authors</span>
+        <div id="authors" class="cg-authors"></div>
+        <div class="row">
+          <button class="btn small" type="button" id="addAuthor"><svg class="i"><use href="#i-plus"/></svg>Add author</button>
+          <span class="faint">Leave empty if there is no author.</span>
+        </div>
+      </div>
+
+      <label class="field" data-k="title"><span>Title</span>
+        <input class="input" id="f-title" dir="auto" autocomplete="off">
+      </label>
+      <p class="faint cg-hint" id="titleHint">Type titles in sentence case (capitalise the first word, proper nouns and the first word after a colon). Title case is applied automatically where a style needs it.</p>
+      <label class="check" id="autoCaseWrap"><input type="checkbox" id="autoCase" checked> Apply title case for MLA, Chicago and IEEE</label>
+
+      <label class="field" data-k="container"><span>Container</span>
+        <input class="input" id="f-container" dir="auto" autocomplete="off">
+      </label>
+      <label class="field" data-k="editors"><span>Editors <span class="faint">(First Last; First Last)</span></span>
+        <input class="input" id="f-editors" dir="auto" autocomplete="off" placeholder="Jane Doe; John Smith">
+      </label>
+
+      <div class="grid-3 cg-date">
+        <label class="field" data-k="year">Year
+          <input class="input" id="f-year" inputmode="numeric" autocomplete="off" placeholder="2024">
+        </label>
+        <label class="field" data-k="month">Month
+          <select class="select" id="f-month">
+            <option value="">—</option>
+            <option value="1">January</option><option value="2">February</option><option value="3">March</option>
+            <option value="4">April</option><option value="5">May</option><option value="6">June</option>
+            <option value="7">July</option><option value="8">August</option><option value="9">September</option>
+            <option value="10">October</option><option value="11">November</option><option value="12">December</option>
+          </select>
+        </label>
+        <label class="field" data-k="day">Day
+          <input class="input" id="f-day" inputmode="numeric" autocomplete="off" placeholder="15">
+        </label>
+      </div>
+
+      <div class="grid-3">
+        <label class="field" data-k="edition">Edition
+          <input class="input" id="f-edition" autocomplete="off" placeholder="2">
+        </label>
+        <label class="field" data-k="volume">Volume
+          <input class="input" id="f-volume" autocomplete="off" placeholder="12">
+        </label>
+        <label class="field" data-k="issue">Issue
+          <input class="input" id="f-issue" autocomplete="off" placeholder="3">
+        </label>
+        <label class="field" data-k="pages">Pages
+          <input class="input" id="f-pages" autocomplete="off" placeholder="45-67">
+        </label>
+        <label class="field" data-k="number">Report no.
+          <input class="input" id="f-number" autocomplete="off" placeholder="WHO-2021-1">
+        </label>
+      </div>
+
+      <div class="grid-2">
+        <label class="field" data-k="publisher"><span>Publisher</span>
+          <input class="input" id="f-publisher" dir="auto" autocomplete="off">
+        </label>
+        <label class="field" data-k="place"><span>Place <span class="faint">(Chicago, Harvard, IEEE)</span></span>
+          <input class="input" id="f-place" dir="auto" autocomplete="off" placeholder="New York, NY, USA">
+        </label>
+      </div>
+
+      <label class="field" data-k="doi">DOI
+        <input class="input" id="f-doi" autocomplete="off" spellcheck="false" placeholder="10.1000/xyz123">
+      </label>
+      <label class="field" data-k="url">URL
+        <input class="input" id="f-url" autocomplete="off" spellcheck="false" placeholder="www.example.com/page">
+      </label>
+      <label class="field" data-k="accessed">Accessed on
+        <input class="input" id="f-accessed" type="date">
+      </label>
+    </section>
+
+    <div class="stack cg-side">
+      <section class="card stack">
+        <div class="row between">
+          <h2>Citation <small id="styleName">APA 7</small></h2>
+          <span class="chip" id="warn" hidden></span>
+        </div>
+        <div class="cg-out" id="out" aria-live="polite"></div>
+        <div class="cg-intext"><span class="faint">In-text</span> <b id="intext"></b></div>
+        <div class="row">
+          <button class="btn primary" type="button" id="add"><svg class="i"><use href="#i-plus"/></svg><span>Add to bibliography</span></button>
+          <button class="btn" type="button" id="copyRich"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+          <button class="btn ghost" type="button" id="copyPlain">Plain text</button>
+        </div>
+      </section>
+
+      <section class="card stack">
+        <div class="row between">
+          <h2 id="bibTitle">References</h2>
+          <span class="chip" id="count">0 sources</span>
+        </div>
+        <div id="bib"></div>
+        <div class="row">
+          <button class="btn small" type="button" id="bibRich"><svg class="i"><use href="#i-copy"/></svg>Copy all</button>
+          <button class="btn small ghost" type="button" id="bibPlain">Copy plain</button>
+          <button class="btn small ghost" type="button" id="bibTxt"><svg class="i"><use href="#i-download"/></svg>.txt</button>
+          <span class="grow"></span>
+          <button class="btn small ghost danger" type="button" id="bibClear"><svg class="i"><use href="#i-trash"/></svg>Clear</button>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
